@@ -26,6 +26,7 @@ import androidx.core.content.ContextCompat
 import android.webkit.CookieManager
 import com.instructure.student.BuildConfig
 import com.instructure.student.R
+import com.instructure.canvasapi2.models.AccountDomain
 import com.instructure.canvasapi2.models.User
 import com.instructure.canvasapi2.utils.ApiPrefs
 import com.instructure.canvasapi2.utils.RemoteConfigParam
@@ -54,7 +55,7 @@ class LoginActivity : BaseLoginInitActivity() {
     }
 
     override fun beginLoginFlowIntent(): Intent {
-        return LoginLandingPageActivity.createIntent(this);
+        return return SignInActivity.createIntent(this, AccountDomain(getString(R.string.canvas_domain), "", 0.0, ""));
     }
 
     override fun themeColor(): Int {
