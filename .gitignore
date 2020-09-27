@@ -49,3 +49,4 @@ apps/true/
 fastlane/.idea
 
 apps/captures
+secrets.xml

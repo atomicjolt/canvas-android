@@ -96,7 +96,7 @@ abstract class BaseLoginSignInActivity : AppCompatActivity(), OnAuthenticationSe
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
-        canvasLogin = intent!!.extras!!.getInt(Const.CANVAS_LOGIN, 0)
+        canvasLogin = 0
         setupViews()
         applyTheme()
         beginSignIn(accountDomain)
@@ -296,21 +296,18 @@ abstract class BaseLoginSignInActivity : AppCompatActivity(), OnAuthenticationSe
                     buildAuthenticationUrl(apiProtocol, accountDomain, clientId, false)
                     loadAuthenticationUrl(apiProtocol, domain)
                 } else {
-                    //Error message
-                    val errorId: Int = when (domainVerificationResult?.result) {
-                        DomainVerificationResult.DomainVerificationCode.GeneralError -> R.string.mobileVerifyGeneral
-                        DomainVerificationResult.DomainVerificationCode.DomainNotAuthorized -> R.string.mobileVerifyDomainUnauthorized
-                        DomainVerificationResult.DomainVerificationCode.UnknownUserAgent -> R.string.mobileVerifyUserAgentUnauthorized
-                        else -> R.string.mobileVerifyUnknownError
-                    }
-                    if (!this@BaseLoginSignInActivity.isFinishing) {
-                        val builder = AlertDialog.Builder(this@BaseLoginSignInActivity)
-                        builder.setTitle(R.string.errorOccurred)
-                        builder.setMessage(errorId)
-                        builder.setCancelable(true)
-                        val dialog = builder.create()
-                        dialog.show()
-                    }
+
+                    accountDomain.domain = getString(R.string.canvas_domain)
+                    clientId = getString(R.string.client_id)
+                    clientSecret = getString(R.string.client_secret)
+
+                    //Get the protocol
+                    val apiProtocol = "https"
+
+                    //Set the protocol
+                    protocol = apiProtocol
+                    buildAuthenticationUrl(apiProtocol, accountDomain, clientId, false)
+                    loadAuthenticationUrl(apiProtocol, domain)
                 }
             }
         }

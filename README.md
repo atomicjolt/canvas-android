@@ -6,19 +6,37 @@ The open source code provided by the Android Team at Instructure.
 
 ## Building
 
-First, install the Flutter SDK using the instructions found [here](https://flutter.dev/docs/get-started/install).
+STOP! Before opening Android Studio you must complete all of the following steps otherwise you will need to delete the project and re-clone.
+
+First, install the Flutter SDK 1.20.3 using the instructions found [here](https://flutter.dev/docs/get-started/install).
 
 Next, run `./open_source.sh` once. You may now use Gradle to build the apps. Prior to building the Student app for the first time, navigate to `libs/flutter_student_embed` and run the command `flutter pub get`.
 
+Now you can open android studio for the first time. You should open the `apps` folder to initialize the project correctly.
+
+Once you have opened the apps folder in Android Studio the gradle sync should automatically start, if not you can manually start it by clicking the gradle sync button.
+
+In the login-api-2 app you need to add a file called secrets.xml to the res/values folder. You can do so by right clicking the values folder and selecting `new > values resource file`. Call it `secrets` and leave the other options alone. You should then copy these contents
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="canvas_url" translatable="false">atomicjolt.instructure.com</string>
+    <string name="client_id" translatable="false">put your id here</string>
+    <string name="client_secret" translatable="false">put your secret here</string>
+</resources>
+```
+
+into your new secrets file and then replace the strings with the the appropriate values for your dev env. You can get a client id and client secret (also known as a developer key and secret) from the canvas that you will be developing against.
+
+
+You can develop against a local canvas but you will need to make sure and do the full setup of the web app (you can just do the dev setup but then run the redis cache). You will also need to run ngrok because your simulator or phone can't hit localhost on your computer.
+
+
 ### Student and Teacher
 
-1. Open `apps/build.gradle` in Android Studio
-```
-Android Studio > Import Project > canvas-android/apps/build.gradle
-```
-
-2. Select the app from the list of configurations (`student` or `teacher`)
-3. Tap 'Run' (`^R`) to run the app
+1. Select the app from the list of configurations (`student` or `teacher`)
+2. Tap 'Run' (`^R`) to run the app
 
 ### Parent
 
@@ -47,7 +65,7 @@ App | Description
 [Canvas Student][canvas]      | Used by Students all over the world to be smarter, go faster, and do more.
 [Canvas Teacher][teacher]     | User by Teachers all over the world to update course content or grade on the go.
 [Canvas Parent][parent]       | Used by Parents all over the world to be parents.
-[Canvas Polls][polls]         | Used to take live polls. 
+[Canvas Polls][polls]         | Used to take live polls.
 
 [canvas]: https://play.google.com/store/apps/details?id=com.instructure.candroid
 [teacher]: https://play.google.com/store/apps/details?id=com.instructure.teacher
@@ -60,7 +78,7 @@ App | Description
 
 Module | Description
    --- | ---
-BluePrint    | An MVP Architecture that depends on PandaRecyclerView. 
+BluePrint    | An MVP Architecture that depends on PandaRecyclerView.
 Canvas-Api   | *Deprecated* - Canvas for Android Api used to talk to Canvas LMS. (deprecated)
 Canvas-Api-2 | Canvas for Android Api used to talk to the Canvas LMS and is testable.
 dataseedingapi| gRPC wrapper for Canvas that enables creating data to test the apps

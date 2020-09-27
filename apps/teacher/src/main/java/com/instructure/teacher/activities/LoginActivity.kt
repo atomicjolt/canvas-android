@@ -21,6 +21,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import com.instructure.canvasapi2.models.AccountDomain
 import com.instructure.canvasapi2.models.User
 import com.instructure.canvasapi2.utils.ApiPrefs
 import com.instructure.loginapi.login.activities.BaseLoginInitActivity
@@ -37,7 +38,7 @@ import com.instructure.teacher.utils.getColorCompat
 
 class LoginActivity : BaseLoginInitActivity() {
 
-    override fun beginLoginFlowIntent(): Intent = LoginLandingPageActivity.createIntent(this)
+    override fun beginLoginFlowIntent(): Intent = SignInActivity.createIntent(this, AccountDomain(getString(R.string.canvas_domain), "", 0.0, ""));
     override fun launchApplicationMainActivityIntent(): Intent = createLaunchApplicationMainActivityIntent(this, intent?.extras)
     override fun themeColor(): Int = getColorCompat(R.color.login_teacherAppTheme)
 
