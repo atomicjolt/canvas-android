@@ -25,6 +25,7 @@ import com.instructure.student.activity.LoginActivity
 import com.instructure.student.flutterChannels.FlutterComm
 import com.instructure.student.util.StudentPrefs
 import com.instructure.student.widget.WidgetUpdater
+import java.lang.Exception
 
 class StudentLogoutTask(type: Type, uri: Uri? = null) : LogoutTask(type, uri) {
 
@@ -43,6 +44,13 @@ class StudentLogoutTask(type: Type, uri: Uri? = null) : LogoutTask(type, uri) {
     }
 
     override fun getFcmToken(listener: (registrationId: String?) -> Unit) {
-        FirebaseInstanceId.getInstance().instanceId.addOnCompleteListener { task -> listener(task.result?.token) }
+        FirebaseInstanceId.getInstance().instanceId.addOnCompleteListener { task ->
+            try {
+                listener(task.result?.token)
+            } catch (e: Exception) {
+                // Fallback to null in case anything bad happens, that way the logout still goes through
+                listener(null)
+            }
+        }
     }
 }
