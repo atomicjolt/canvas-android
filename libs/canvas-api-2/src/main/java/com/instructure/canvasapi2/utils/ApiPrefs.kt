@@ -65,7 +65,7 @@ object ApiPrefs : PrefManager(PREFERENCE_FILE_NAME) {
     var theme: CanvasTheme? by GsonPref(CanvasTheme::class.java, null)
 
     /* Non-masquerading Prefs */
-    internal var originalDomain by StringPref("", "domain")
+    private var originalDomain by StringPref("", "canvas_domain")
     private var originalUser: User? by GsonPref(User::class.java, null, "user")
 
     var selectedLocale by StringPref(ACCOUNT_LOCALE)
