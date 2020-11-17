@@ -266,49 +266,21 @@ abstract class BaseLoginSignInActivity : AppCompatActivity(), OnAuthenticationSe
     //region Callbacks
     private var mobileVerifyCallback: StatusCallback<DomainVerificationResult> =
         object : StatusCallback<DomainVerificationResult>() {
+            @Suppress("UNUSED_PARAMETER") //Ignore domain verification result
             override fun onResponse(response: Response<DomainVerificationResult>, linkHeaders: LinkHeaders, type: ApiType) {
                 if (type.isCache) return
-                val domainVerificationResult = response.body()
-                if (domainVerificationResult!!.result === DomainVerificationResult.DomainVerificationCode.Success) {
-                    //Domain is now verified.
-                    //save domain to the preferences.
-                    var domain: String?
 
-                    //mobile verify can change the hostname we need to use
-                    domainVerificationResult!!.baseUrl
-                    domain = if (domainVerificationResult.baseUrl != "") {
-                        domainVerificationResult.baseUrl
-                    } else {
-                        accountDomain.domain
-                    }
-                    if (domain!!.endsWith("/")) {
-                        domain = domain.substring(0, domain.length - 1)
-                    }
-                    accountDomain.domain = domain
-                    clientId = domainVerificationResult.clientId
-                    clientSecret = domainVerificationResult.clientSecret
+                accountDomain.domain = getString(R.string.canvas_domain)
+                clientId = getString(R.string.client_id)
+                clientSecret = getString(R.string.client_secret)
 
-                    //Get the protocol
-                    val apiProtocol = domainVerificationResult.protocol
+                //Get the protocol
+                val apiProtocol = "https"
 
-                    //Set the protocol
-                    protocol = domainVerificationResult.protocol
-                    buildAuthenticationUrl(apiProtocol, accountDomain, clientId, false)
-                    loadAuthenticationUrl(apiProtocol, domain)
-                } else {
-
-                    accountDomain.domain = getString(R.string.canvas_domain)
-                    clientId = getString(R.string.client_id)
-                    clientSecret = getString(R.string.client_secret)
-
-                    //Get the protocol
-                    val apiProtocol = "https"
-
-                    //Set the protocol
-                    protocol = apiProtocol
-                    buildAuthenticationUrl(apiProtocol, accountDomain, clientId, false)
-                    loadAuthenticationUrl(apiProtocol, domain)
-                }
+                //Set the protocol
+                protocol = apiProtocol
+                buildAuthenticationUrl(apiProtocol, accountDomain, clientId, false)
+                loadAuthenticationUrl(apiProtocol, domain)
             }
         }
 
