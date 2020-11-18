@@ -105,8 +105,6 @@ abstract class BaseLoginSignInActivity : AppCompatActivity(), OnAuthenticationSe
     @SuppressLint("SetJavaScriptEnabled")
     private fun setupViews() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        toolbar.title = accountDomain.domain
-        toolbar.setNavigationIcon(R.drawable.ic_action_arrow_back)
         toolbar.navigationIcon?.isAutoMirrored = true
         toolbar.setNavigationContentDescription(R.string.close)
         toolbar.setNavigationOnClickListener { finish() }
