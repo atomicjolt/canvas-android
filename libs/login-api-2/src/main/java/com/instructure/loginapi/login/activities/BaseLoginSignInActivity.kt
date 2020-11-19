@@ -277,7 +277,7 @@ abstract class BaseLoginSignInActivity : AppCompatActivity(), OnAuthenticationSe
 
                 //Set the protocol
                 protocol = apiProtocol
-                buildAuthenticationUrl(apiProtocol, accountDomain, clientId, false)
+                buildAuthenticationUrl(apiProtocol, accountDomain, clientId, true)
                 loadAuthenticationUrl(apiProtocol, domain)
             }
         }
