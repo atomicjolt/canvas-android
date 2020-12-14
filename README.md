@@ -21,7 +21,7 @@ In the login-api-2 app you need to add a file called secrets.xml to the res/valu
 ```
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="canvas_url" translatable="false">atomicjolt.instructure.com</string>
+    <string name="canvas_domain" translatable="false">atomicjolt.instructure.com</string>
     <string name="client_id" translatable="false">put your id here</string>
     <string name="client_secret" translatable="false">put your secret here</string>
 </resources>
